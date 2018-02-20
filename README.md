@@ -47,3 +47,64 @@ Be sure that you are in the same directory as the Vagrantfile when running these
 
 # Plugins
 - [vagrant-hostsupdater](https://github.com/cogitatio/vagrant-hostsupdater) : `$ vagrant plugin install vagrant-hostsupdater` to update your `/etc/hosts` file automatically each time you start/stop your vagrant box.
+**************************************************************************************************************************************
+## Creating the Vagran­tfile
+Vagran­tfile custom­iza­tions
+vagrant.configure("2") do |config|
+    config.vm.box = "chef/centos-6.5"
+    # guest is the VM; host is your computer end
+    config.vm.network "forwarded_port", guest: 80, host: 8080
+    config.vm.provision :shell, path: "my_bash_script.sh"
+    # path is relative to your Vagrantfile
+end
+By default ./ on your computer is shared as /vagrant on the VM. Letting other people access your VM's
+Boxes
+vagrant box list
+List the installed boxes
+vagrant box add <na­me> <box path/HTTP URI>
+Add the box for later use
+vagrant box remove <na­me> virtualbox
+delete a box
+vagrant box outdated
+Check for updates vagrant box update
+Boxes are prebuilt VM images. You never modify your box images
+ 	
+## Common Vagrant Commands
+vagrant up
+starts vagrant enviro­nment (also provisions only on the FIRST vagrant up) Equivalent to pressing the power buttons on your servers.
+vagrant status
+outputs status of the vagrant machine
+vagrant halt
+stops the vagrant machine
+vagrant reload
+restarts vagrant machine, loads new Vagran­tfile config­uration
+vagrant provision
+forces reprov­isi­oning of the vagrant machine
+vagrant ssh
+connects to machine via SSH
+vagrant destroy
+stops and deletes all traces of the vagrant machine
+vagrant suspend
+Suspends a virtual machine (remembers state)
+vagrant resume
+Resume a suspended machine (vagrant up works just fine for this as well)
+vagrant reload --prov­ision
+Restart the virtual machine and force provis­ioning
+vagrant provision --debug
+Use the debug flag to increase the verbosity of the output
+Be sure that you are in the same directory as the Vagran­tfile when running these commands!
+
+ 
+## Tips
+vagrant -v
+Get the vagrant version
+vagrant global­-status
+outputs status of all vagrant machines
+vagrant global­-status --prune
+same as above, but prunes invalid entries
+vagrant push
+Vagrant can be configured to deploy code!
+vagrant up --prov­ision | tee provis­ion.log
+Runs vagrant up, forces provis­ioning and logs all output to a file
+VAGRAN­T_L­OG=info vagrant up
+Use the enviro­nement variable VAGRAN­T_LOG to set verbosity
